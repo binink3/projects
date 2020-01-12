@@ -39,6 +39,13 @@ $(document).ready(function() {
 	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 	    });
 	  });
+
+	let fundNameInsert = $(".list-group-item").val();
+	$(fundNameInsert).on("click", function(){
+		// $("#fund-input").append(fundNameInsert);
+		alert(1);
+	})
+	
 });
 
 
