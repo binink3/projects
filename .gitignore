@@ -1,3 +1,7 @@
 
-*.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
 .idea/projects.iml
+.idea/vcs.xml
+.idea/workspace.xml~
