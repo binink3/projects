@@ -4,6 +4,7 @@
 	<title>Public Fund</title>
 	<!-- css -->
 	<link rel="stylesheet" type="text/css" href="../static/css/public_fund.css">
+	<!-- <link rel="stylesheet" href="{{ url_for('static', filename='../static/css/public_fund.css') }}"> -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<!-- font -->
 	<!-- <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'> -->
@@ -30,138 +31,124 @@
 				</div> 
 			</div> 
 			<ul class="fund-list-group" id="myList">
+				<li class="list-group-item">교보악사퇴직연금증권자투자신탁 1(채권혼합)</li>
+				<li class="list-group-item">스마트목표전환형증권투자신탁S-7[채권]</li>
 				<li class="list-group-item">samsung</li>
 				<li class="list-group-item">hanhwa</li>
 				<li class="list-group-item">lg</li>
 				<li class="list-group-item">apple</li>
-				<li class="list-group-item">골든브릿지스마트목표전환형증권투자신탁S-7[채권]</li>
-				<li class="list-group-item">스마트목표전환형증권투자신탁S-7[채권]</li>
+				<li class="list-group-item">삼성</li>
+				<li class="list-group-item">한화</li>
 				<li class="list-group-item">엘지</li>
 				<li class="list-group-item">애플</li>
 			</ul>  
 		</div>
 	</div> 
-</div> 
-<div id="wrap" class="wrap">
-	<div class="fund-manager-current-info-wrap">
-		<div class="current-info-box">
-			<div class="fund-info-current">
-				<p>
-					삼성전자 베트남 펀드
-				</p>
-				<span class="fund-director">
-					<b>책임 운용사 : </b>홍길동
-				</span>
-				<span class="fund-invested-date">
-					<b>투자일 : </b>2019 / 11 / 22
-				</span>
-				<span class="today-date">
-					<b>기준일 : </b>2020 / 01 / 07
-				</span>
-				<span class="fund-yield">
-					<b>수익률 : </b>5%
-				</span>
-			</div>
-		</div> 
-	</div> 
-	<div id="fund-records-info" class="fund-records-info">
-		<div class="fund-manager-info-wrap">
-			<div class="fund-manager-name">
-				<span>
-					홍길동 펀드 매니저 과거 Track Record
-				</span>
-				<a href="#">
-					<img src="../static/img/plus-btn.png">
-				</a>
+	<div id="wrap" class="wrap">
+		<div class="fund-manager-current-info-wrap">
+			<div class="current-info-box">
+				<div class="fund-info-current">
+					<p>
+						삼성전자 베트남 펀드
+					</p>
+					<span class="fund-director">
+						<b>책임 운용사 : </b>홍길동
+					</span>
+					<span class="fund-invested-date">
+						<b>투자일 : </b>2019 / 11 / 22
+					</span>
+					<span class="today-date">
+						<b>기준일 : </b>2020 / 01 / 07
+					</span>
+					<span class="fund-yield">
+						<b>수익률 : </b>5%
+					</span>
+				</div>
 			</div> 
 		</div> 
-		<div class="fund-track-records-wrap">
-			<div class="fund-track-record">
-				<div class="record-info">
-					<div class="record-info-left">
-						<p>펀드 이름 : </p>
-						<p>투자 날짜 : </p>
-						<p>회수 날짜 : </p>
-						<p>달성 수익률 : </p>
-					</div> 
-					<div class="record-info-right">
-						<p class="fund-name">Samesung Vietnam Fund</p>
-						<p class="invested-date">2019/11/22</p>
-						<p class="">2019/12/31</p>
-						<p class="yield-percentage">3%</p>
-					</div> 
+		<div id="fund-records-info" class="fund-records-info">
+			<div class="fund-manager-info-wrap">
+				<div class="fund-manager-name">
+					<span>
+						홍길동 펀드 매니저 과거 Track Record
+					</span>
 				</div> 
 			</div> 
-			<div class="fund-track-record">
-				<div class="record-info">
-					<div class="record-info-left">
-						<p>펀드 이름 : </p>
-						<p>투자 날짜 : </p>
-						<p>회수 날짜 : </p>
-						<p>달성 수익률 : </p>
-					</div> 
-					<div class="record-info-right">
-						<p class="fund-name">Samesung Vietnam Fund</p>
-						<p class="invested-date">2019/11/22</p>
-						<p class="investment-end-date">2019/12/31</p>
-						<p class="yield-percentage">3%</p>
-					</div> 
-				</div> 
-			</div> 
-			<div class="fund-track-record">
-				<div class="record-info">
-					<div class="record-info-left">
-						<p>펀드 이름 : </p>
-						<p>투자 날짜 : </p>
-						<p>회수 날짜 : </p>
-						<p>달성 수익률 : </p>
-					</div> 
-					<div class="record-info-right">
-						<p class="fund-name">Samesung Vietnam Fund</p>
-						<p class="invested-date">2019/11/22</p>
-						<p class="investment-end-date">2019/12/31</p>
-						<p class="yield-percentage">3%</p>
+			<div class="fund-track-records-wrap">
+				<div class="fund-track-record">
+					<div class="record-info">
+						<div class="record-info-left">
+							<p>투자 날짜 : </p>
+							<p>회수 날짜 : </p>
+							<p>달성 수익률 : </p>
+							<p>투자 국가 : </p>
+							<p>투자 전략 설명 : </p>
+						</div> 
+						<div class="record-info-right">
+							<p class="invested-date">2019/11/22</p>
+							<p class="">2019/12/31</p>
+							<p>3%</p>
+							<p>베트남</p>
+							<p>lorem ipsum</p>
+						</div> 
 					</div> 
 				</div> 
-			</div> 
-			<div class="fund-track-record">
-				<div class="record-info">
-					<div class="record-info-left">
-						<p>펀드 이름 : </p>
-						<p>투자 날짜 : </p>
-						<p>회수 날짜 : </p>
-						<p>달성 수익률 : </p>
+				<div class="fund-track-record">
+					<div class="record-info">
+						<div class="record-info-left">
+							<p>투자 날짜 : </p>
+							<p>회수 날짜 : </p>
+							<p>달성 수익률 : </p>
+							<p>투자 국가 : </p>
+							<p>투자 전략 설명 : </p>
+						</div> 
+						<div class="record-info-right">
+							<p>2019/11/22</p>
+							<p>2019/12/31</p>
+							<p>3%</p>
+							<p>베트남</p>
+							<p>lorem ipsum</p>
+						</div> 
 					</div> 
-					<div class="record-info-right">
-						<p class="fund-name">Samesung Vietnam Fund</p>
-						<p class="invested-date">2019/11/22</p>
-						<p class="investment-end-date">2019/12/31</p>
-						<p class="yield-percentage">3%</p>
+				</div> 
+				<div class="fund-track-record">
+					<div class="record-info">
+						<div class="record-info-left">
+							<p>투자 날짜 : </p>
+							<p>회수 날짜 : </p>
+							<p>달성 수익률 : </p>
+							<p>투자 국가 : </p>
+							<p>투자 전략 설명 : </p>
+						</div> 
+						<div class="record-info-right">
+							<p>2019/11/22</p>
+							<p>2019/12/31</p>
+							<p>3%</p>
+							<p>베트남</p>
+							<p>lorem ipsum</p>
+						</div> 
+					</div> 
+				</div> 
+				<div class="fund-track-record">
+					<div class="record-info">
+						<div class="record-info-left">
+							<p>투자 날짜 : </p>
+							<p>회수 날짜 : </p>
+							<p>달성 수익률 : </p>
+							<p>투자 국가 : </p>
+							<p>투자 전략 설명 : </p>
+						</div> 
+						<div class="record-info-right">
+							<p>2019/11/22</p>
+							<p>2019/12/31</p>
+							<p>3%</p>
+							<p>베트남</p>
+							<p>lorem ipsum</p>
+						</div> 
 					</div> 
 				</div> 
 			</div> 
 		</div> 
-	</div> 
-</div>
+	</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
