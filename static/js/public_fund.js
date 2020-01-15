@@ -7,6 +7,7 @@ $(document).ready(function() {
 		$("html, body").animate(
 			{scrollTop:$("#wrap").offset().top
 		}, 1000, "swing");
+		$(".fund-list-group").css("display", "none");
 	});
 
 	$("#first-page-scroll").css({ height: $(window).innerHeight() });
@@ -45,7 +46,7 @@ $(document).ready(function() {
 	    url: "/fund",
 	    data: {},
 	    success: function(response){
-	      	all_fund_info = response
+	      	all_fund_info = response;
 	       	for (let i = 0; i < response.length; i++) {
 	       		let fund_name = response[i]["fund_name"];
 

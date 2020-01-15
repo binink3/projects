@@ -39,11 +39,67 @@
 				url: "/fund",
 				data: {fund_name_give:fund_name},
 				success: function(response){
-					
 					console.log(response)
-
 					// 클릭한 펀드매니저의 정보 채우기
 					// (response를 이용해서 여기 코딩)
+					// this_fund_info = response;
+					if(this_fund_info = response){
+						let i = 0;
+						let company_name = response[i]["company_name"];
+						let manager_name = response[i]["manager_name"];
+						let fund_name = response[i]["fund_name"];
+						let start_date = response[i]["start_date"];
+						let end_date = response[i]["end_date"];
+						let fund_yield = response[i]["fund_yield"];
+
+						let fund_manager_current_info_wrap = '<div class="current-info-box">\
+																<div class="fund-info-current">\
+																	<p>\
+																	'+fund_name+'\
+																	</p>\
+																	<span class="fund-director">\
+																		<b>책임 운용사 : </b>'+manager_name+'\
+																	</span>\
+																	<span class="fund-invested-date">\
+																		<b>투자일 : </b>'+start_date+'\
+																	</span>\
+																	<span class="today-date">\
+																		<b>기준일 : </b>'+end_date+'\
+																	</span>\
+																	<span class="fund-yield">\
+																		<b>수익률 : </b>'+fund_yield+'\
+																	</span>\
+																</div>\
+															</div>'
+						$(".fund-manager-current-info-wrap").append(fund_manager_current_info_wrap);
+					}
+					for(let i = 0; i <response.length; i++){
+						let company_name = response[i]["company_name"];
+						let manager_name = response[i]["manager_name"];
+						let fund_name = response[i]["fund_name"];
+						let start_date = response[i]["start_date"];
+						let end_date = response[i]["end_date"];
+						let fund_yield = response[i]["fund_yield"];
+
+						let fund_track_record = '<div class="fund-track-record">\
+													<div class="record-info">\
+														<div class="record-info-left">\
+															<p>펀드 이름 : </p>\
+															<p>투자 날짜 : </p>\
+															<p>회수 날짜 : </p>\
+															<p>달성 수익률 : </p>\
+														</div>\
+														<div class="record-info-right">\
+															<p>'+fund_name+'</p>\
+															<p class="invested-date">'+start_date+'</p>\
+															<p>'+end_date+'</p>\
+															<p>'+fund_yield+'</p>\
+														</div>\
+													</div>\
+												</div>'
+						$(".fund-track-records-wrap").append(fund_track_record);
+					}
+					
 				}
 			})
 		}
@@ -62,7 +118,7 @@
 			<div id="ytm-wrap">
 				<div id="ytm-search">
 					<div class="fund-name">
-						<input class="search-input" id="fund-input" type="text" placeholder="ex). 삼성 베트남 펀드">
+						<input class="search-input" id="fund-input" type="text" placeholder="ex). 교보악사Tomorrow장기국공채증권자투자신탁[채권]">
 						<div class="fund-name-search"></div>
 					</div>
 				</div> 
