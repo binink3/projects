@@ -13,6 +13,43 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="../static/js/public_fund.js"></script>
+
+	<script>
+		
+		function setfund(li) {
+			let fund_name = $(li).text()
+
+
+			// 인풋박스에 펀드이름 채우기
+			$("#fund-input").val(fund_name);
+			
+			// 클릭한 펀드의 정보 채우기
+			let this_fund_info;
+			for (let i = 0 ; i < all_fund_info.length; i++) {
+				if (all_fund_info[i]['fund_name'] == fund_name) {
+					this_fund_info = all_fund_info[i];
+				}
+			}
+			console.log(this_fund_info)
+
+			// (this_fund_info를 이용해서 여기 코딩)
+
+			$.ajax({
+				type: "POST",
+				url: "/fund",
+				data: {fund_name_give:fund_name},
+				success: function(response){
+					
+					console.log(response)
+
+					// 클릭한 펀드매니저의 정보 채우기
+					// (response를 이용해서 여기 코딩)
+				}
+			})
+		}
+
+
+	</script>
 </head>
 <body>
 	<div id="first-page-scroll">
