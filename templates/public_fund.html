@@ -40,6 +40,7 @@
 				data: {fund_name_give:fund_name},
 				success: function(response){
 					console.log(response)
+					console.log(fund_name);
 					// 클릭한 펀드매니저의 정보 채우기
 					// (response를 이용해서 여기 코딩)
 					// this_fund_info = response;
@@ -47,7 +48,7 @@
 						let i = 0;
 						let company_name = response[i]["company_name"];
 						let manager_name = response[i]["manager_name"];
-						let fund_name = response[i]["fund_name"];
+						let fund_name_input = fund_name;
 						let start_date = response[i]["start_date"];
 						let end_date = response[i]["end_date"];
 						let fund_yield = response[i]["fund_yield"];
@@ -55,7 +56,7 @@
 						let fund_manager_current_info_wrap = '<div class="current-info-box">\
 																<div class="fund-info-current">\
 																	<p>\
-																	'+fund_name+'\
+																	'+fund_name_input+'\
 																	</p>\
 																	<span class="fund-director">\
 																		<b>책임 운용사 : </b>'+manager_name+'\
@@ -71,12 +72,15 @@
 																	</span>\
 																</div>\
 															</div>'
+						$(".fund-manager-current-info-wrap").empty();
+						$(".fund-manager-name > span").empty();
 						$(".fund-manager-current-info-wrap").append(fund_manager_current_info_wrap);
+						$(".fund-manager-name > span").append(manager_name + " 펀드 매니저 과거 Track Record");
 					}
 					for(let i = 0; i <response.length; i++){
 						let company_name = response[i]["company_name"];
 						let manager_name = response[i]["manager_name"];
-						let fund_name = response[i]["fund_name"];
+						let fund_name_db = response[i]["fund_name"];
 						let start_date = response[i]["start_date"];
 						let end_date = response[i]["end_date"];
 						let fund_yield = response[i]["fund_yield"];
@@ -90,7 +94,7 @@
 															<p>달성 수익률 : </p>\
 														</div>\
 														<div class="record-info-right">\
-															<p>'+fund_name+'</p>\
+															<p>'+fund_name_db+'</p>\
 															<p class="invested-date">'+start_date+'</p>\
 															<p>'+end_date+'</p>\
 															<p>'+fund_yield+'</p>\
