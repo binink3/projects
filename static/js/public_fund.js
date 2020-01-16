@@ -3,7 +3,6 @@ $(document).ready(function() {
 
 	$("#wrap").css("display", "none");
 	$(".fund-name-search").on("click", function(){
-		// $("#wrap").empty();
 		$("#wrap").css("display", "block");
 		$("html, body").animate(
 			{scrollTop:$("#wrap").offset().top
