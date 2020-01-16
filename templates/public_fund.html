@@ -30,53 +30,44 @@
 					this_fund_info = all_fund_info[i];
 				}
 			}
-			console.log(this_fund_info)
 
-			// (this_fund_info를 이용해서 여기 코딩)
+			let company_name = this_fund_info["company_name"];
+			let manager_name = this_fund_info["manager_name"];
+			let fund_name_input = this_fund_info["fund_name"];
+			let start_date = this_fund_info["start_date"];
+			let end_date = this_fund_info["end_date"];
+			let fund_yield = this_fund_info["fund_yield"];
+
+			let fund_manager_current_info_wrap = '<div class="current-info-box">\
+													<div class="fund-info-current">\
+														<p>\
+														'+fund_name_input+'\
+														</p>\
+														<span class="fund-director">\
+															<b>책임 운용사 : </b>'+manager_name+'\
+														</span>\
+														<span class="fund-invested-date">\
+															<b>투자일 : </b>'+start_date+'\
+														</span>\
+														<span class="today-date">\
+															<b>기준일 : </b>'+end_date+'\
+														</span>\
+														<span class="fund-yield">\
+															<b>수익률 : </b>'+fund_yield+'\
+														</span>\
+													</div>\
+												</div>'
+
+			$(".fund-manager-current-info-wrap").html(fund_manager_current_info_wrap);
+			$(".fund-manager-name > span").text(manager_name + " 펀드 매니저 과거 Track Record");
+
 
 			$.ajax({
 				type: "POST",
 				url: "/fund",
 				data: {fund_name_give:fund_name},
 				success: function(response){
-					console.log(response)
-					console.log(fund_name);
-					// 클릭한 펀드매니저의 정보 채우기
-					// (response를 이용해서 여기 코딩)
-					// this_fund_info = response;
-					if(this_fund_info = response){
-						let i = 0;
-						let company_name = response[i]["company_name"];
-						let manager_name = response[i]["manager_name"];
-						let fund_name_input = fund_name;
-						let start_date = response[i]["start_date"];
-						let end_date = response[i]["end_date"];
-						let fund_yield = response[i]["fund_yield"];
-
-						let fund_manager_current_info_wrap = '<div class="current-info-box">\
-																<div class="fund-info-current">\
-																	<p>\
-																	'+fund_name_input+'\
-																	</p>\
-																	<span class="fund-director">\
-																		<b>책임 운용사 : </b>'+manager_name+'\
-																	</span>\
-																	<span class="fund-invested-date">\
-																		<b>투자일 : </b>'+start_date+'\
-																	</span>\
-																	<span class="today-date">\
-																		<b>기준일 : </b>'+end_date+'\
-																	</span>\
-																	<span class="fund-yield">\
-																		<b>수익률 : </b>'+fund_yield+'\
-																	</span>\
-																</div>\
-															</div>'
-						$(".fund-manager-current-info-wrap").empty();
-						$(".fund-manager-name > span").empty();
-						$(".fund-manager-current-info-wrap").append(fund_manager_current_info_wrap);
-						$(".fund-manager-name > span").append(manager_name + " 펀드 매니저 과거 Track Record");
-					}
+					$(".fund-track-records-wrap").empty();
 					for(let i = 0; i <response.length; i++){
 						let company_name = response[i]["company_name"];
 						let manager_name = response[i]["manager_name"];
