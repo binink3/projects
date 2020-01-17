@@ -17,7 +17,6 @@ ul, li{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation-name: none;
 }
 .title{
 	margin-bottom: 50px;
@@ -148,26 +147,4 @@ ul, li{
 	bottom: 0;
 	background-color: skyblue;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
