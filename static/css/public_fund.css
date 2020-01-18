@@ -1,10 +1,13 @@
 *{
 	margin: 0;
 	padding: 0;
-	/*font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';*/
+	font-family: 'Spoqa Han Sans', 'Sans-serif';
 }
+ul, li{
+	list-style: none;
+}
+
 #first-page-scroll{
-	/*background-color: skyblue;*/
 	background: url("../img/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -14,7 +17,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation-name: none;
 }
 .title{
 	margin-bottom: 50px;
@@ -22,13 +24,15 @@
 .title > h1{
 	text-align: center;
 	margin-bottom: 50px;
+	color: #ffffff;
 }
 #wrap{
 	width:100%;
 	margin:0 auto;
-	margin-top:80px; 
-	margin-bottom: 80px;
+	padding-top:80px; 
+	padding-bottom: 80px;
 	max-width: 1300px;
+	position: relative;
 }
 .fund-manager-current-info-wrap{
 	padding: 1%;
@@ -92,6 +96,9 @@
 	background-color: #f4f4f4;
 	box-sizing: border-box;
 }
+.fund-records-info{
+	margin-bottom: 100px;
+}
 .fund-info-current > p{
 	font-weight: bold;
 	font-size: 30px;
@@ -109,14 +116,6 @@
 	font-weight: bold;
 	font-size: 30px;
 }
-.fund-manager-name > a{
-	float: right;
-	margin-right: 20px;
-}
-.fund-manager-name > a > img{
-	width: 20px;
-	height: 20px;
-}
 .fund-track-records-wrap{
 	width: 100%;
 	height: auto;
@@ -131,26 +130,21 @@
 .record-info{
 	display: flex;
 	justify-content: space-around;
+	margin: 20px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.record-info > ul > li{
+	padding-bottom: 20px;
+}
+.record-info > ul > li:last-child{
+	padding-bottom: 0;
+}
+#advertising-banner-wrap{
+	max-width: 1300px;
+	width: 100%;
+	height: 100px;
+	margin: 0 auto;
+	position: absolute;
+	bottom: 0;
+	background-color: skyblue;
+}
 
