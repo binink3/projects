@@ -12,7 +12,7 @@ file_list_xlsx = [file for file in file_list
                 if file.endswith(".xlsx")]
 
 for name in file_list_xlsx:
-    file_name = path+'\\'+name
+    file_name = path+'\\'+name  #맥, 윈도우 계속 수정해야한다.
     work_book = load_workbook(file_name)
     work_sheet = work_book['sheet']
 
