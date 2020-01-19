@@ -69,5 +69,4 @@ for name in file_list_xlsx:
 
                 print(doc2)
                 #사실은 doc2를 doc으로 하더라도 두번째 elif구문내에서 돌아가는 변수이기 때문에, 위의 doc 변수와 겹칠 일이 없다.
-
                 db.funds.insert_one(doc2)
