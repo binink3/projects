@@ -148,3 +148,43 @@ ul, li{
 	background-color: skyblue;
 }
 
+/*----------------responsive----------------*/
+@media only screen(min-width: 320px) and (max-width: 480px) {
+  #first-page-scroll{
+	max-width: 100%;
+	height: auto;
+	background-size: 100%;
+	background-position: 50% 50%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

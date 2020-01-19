@@ -12,7 +12,7 @@ file_list_xlsx = [file for file in file_list
                 if file.endswith(".xlsx")]
 
 for name in file_list_xlsx:
-    file_name = path+'/'+name
+    file_name = path+'\\'+name
     work_book = load_workbook(file_name)
     work_sheet = work_book['sheet']
 
@@ -24,11 +24,11 @@ for name in file_list_xlsx:
             if row[0].value is None:
                 break
             elif '-' not in row[0].value:
-                fund_id_past = row[0].value
-                fund_name_past = row[2].value
-                fund_start_past = row[6].value
-                fund_end_past = row[7].value
-                fund_yield_past = row[17].value
+                fund_id_past = row[0].value if row[0].value is not None else '0' #삼항 연산자 (한 줄 짜리 If)
+                fund_name_past = row[2].value if row[2].value is not None else '0'
+                fund_start_past = row[6].value if row[6].value is not None else '0'
+                fund_end_past = row[7].value if row[7].value is not None else '0'
+                fund_yield_past = row[17].value if row[17].value is not None else 'N/A'
 
                 doc = {
                     'company_name' : company_name+'자산운용',
@@ -41,8 +41,8 @@ for name in file_list_xlsx:
                     'Status' : 'Past'
                 }
 
-                print (doc)
-                #db.funds.insert_one(doc)
+                print(doc)
+                db.funds.insert_one(doc)
 
 
     elif file_name.find('기준일') != -1:
@@ -50,10 +50,10 @@ for name in file_list_xlsx:
             if row[0].value is None:
                 break
             elif '-' not in row[0].value:
-                fund_id = row[0].value
-                fund_name = row[1].value
-                fund_start = row[5].value
-                fund_yield = row[14].value
+                fund_id = row[0].value if row[0].value is not None else '0'
+                fund_name = row[1].value if row[1].value is not None else '0'
+                fund_start = row[5].value if row[5].value is not None else '0'
+                fund_yield = row[14].value if row[14].value is not None else '0'
 
                 doc2 = {
                     'company_name' : company_name+'자산운용',
@@ -66,5 +66,8 @@ for name in file_list_xlsx:
                     'Status' : 'Active'
                 }
 
-                print(doc2) #사실은 doc2를 doc으로 하더라도 두번째 elif구문내에서 돌아가는 변수이기 때문에, 위의 doc 변수와 겹칠 일이 없다.
-                #db.funds.insert_one(doc2)
+
+                print(doc2)
+                #사실은 doc2를 doc으로 하더라도 두번째 elif구문내에서 돌아가는 변수이기 때문에, 위의 doc 변수와 겹칠 일이 없다.
+
+                db.funds.insert_one(doc2)
