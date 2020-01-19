@@ -95,6 +95,7 @@ ul, li{
 .fund-manager-current-info-wrap{
 	background-color: #f4f4f4;
 	box-sizing: border-box;
+	border-radius: 5px;
 }
 .fund-records-info{
 	margin-bottom: 100px;
@@ -110,6 +111,7 @@ ul, li{
 .fund-manager-info-wrap{
 	background-color: skyblue;
 	margin-top: 50px;
+	border-radius: 5px;
 	padding: 1%;
 }
 .fund-manager-name{
@@ -122,10 +124,15 @@ ul, li{
 	margin-top: 15px;
 	display: flex;
 	justify-content: space-between;
+	display: flex;
+  	flex-wrap: wrap;
 }
 .fund-track-record{
 	width: 23%;
 	box-shadow: 0 2px 20px 0 rgba(0,0,0,.06);
+	flex: 1 0 21%;
+	margin: 5px;
+	border-radius: 5px;
 }
 .record-info{
 	display: flex;
