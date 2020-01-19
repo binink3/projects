@@ -83,9 +83,15 @@ function setfund() {
 	let fund_yield = this_fund_info["fund_yield"];
 
 	let fund_manager_current_info_wrap = '<div class="current-info-box">\
+											<div>\
+												<h2>\
+													現 운용펀드\
+												</h2>\
+											</div>\
+											<br>\
 											<div class="fund-info-current">\
 												<p>\
-												<b>'+fund_name_input+'</b> ('+company_name+')\
+												<span>'+fund_name_input+'</span> ('+company_name+')\
 												</p>\
 												<span class="fund-director">\
 													<b>책임 운용역 : </b>'+manager_name+'\
@@ -103,7 +109,8 @@ function setfund() {
 										</div>'
 
 	$(".fund-manager-current-info-wrap").html(fund_manager_current_info_wrap);
-	$(".fund-manager-name > span").text(manager_name + " 펀드 매니저의 과거 Record Tracking 하기");
+	$(".fund-manager-name > span").text(manager_name + " 펀드매니저의 旣 운영완료 펀드");
+
 
 	$.ajax({
 		type: "POST",

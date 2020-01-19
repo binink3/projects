@@ -55,6 +55,11 @@ ul, li{
 	background-color: #ffffff;
 	border-radius: 5px;
 }
+.first-page-wrap > p{
+	text-align: center;
+	color: #ffffff;
+	font-size: 20px;
+}
 .fund-name{
 	display: block;
     position: relative;
@@ -101,7 +106,6 @@ ul, li{
 	margin-bottom: 100px;
 }
 .fund-info-current > p{
-	font-weight: bold;
 	font-size: 30px;
 }
 .fund-info-current > span{
@@ -114,25 +118,12 @@ ul, li{
 	border-radius: 5px;
 	padding: 1%;
 }
-.fund-manager-name{
+.fund-manager-info-wrap > h2{
 	font-weight: bold;
+}
+.fund-manager-name{
 	font-size: 30px;
 	display: inline-block;
-}
-.prev-next-btn{
-	display: inline-block;
-	float: right;
-	line-height: 45px;
-}
-.prev-btn{
-	float: left;
-	margin-right: 20px;
-}
-.next-btn{
-	float: right;
-}
-.prev-btn:hover, .next-btn:hover{
-	cursor: pointer;
 }
 .fund-track-records-wrap{
 	width: 100%;
@@ -161,6 +152,10 @@ ul, li{
 .record-info > ul > li:last-child{
 	padding-bottom: 0;
 }
+.current-info-box h2{
+	font-weight: bold;
+}
+
 
 /*----------------responsive----------------*/
 @media only screen(min-width: 320px) and (max-width: 480px) {
