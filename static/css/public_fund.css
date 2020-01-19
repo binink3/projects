@@ -117,6 +117,22 @@ ul, li{
 .fund-manager-name{
 	font-weight: bold;
 	font-size: 30px;
+	display: inline-block;
+}
+.prev-next-btn{
+	display: inline-block;
+	float: right;
+	line-height: 45px;
+}
+.prev-btn{
+	float: left;
+	margin-right: 20px;
+}
+.next-btn{
+	float: right;
+}
+.prev-btn:hover, .next-btn:hover{
+	cursor: pointer;
 }
 .fund-track-records-wrap{
 	width: 100%;
