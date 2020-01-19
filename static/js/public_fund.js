@@ -60,8 +60,8 @@ $(document).ready(function() {
 });
 
 function getfund(input){
-			let fund_name = $(input).text();
-			$("#fund-input").val(fund_name);
+	let fund_name = $(input).text();
+	$("#fund-input").val(fund_name);
 }
 
 function setfund() {
@@ -133,6 +133,32 @@ function setfund() {
 		}
 	});
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
