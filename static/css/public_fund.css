@@ -145,15 +145,6 @@ ul, li{
 .record-info > ul > li:last-child{
 	padding-bottom: 0;
 }
-#advertising-banner-wrap{
-	max-width: 1300px;
-	width: 100%;
-	height: 100px;
-	margin: 0 auto;
-	position: absolute;
-	bottom: 0;
-	background-color: skyblue;
-}
 
 /*----------------responsive----------------*/
 @media only screen(min-width: 320px) and (max-width: 480px) {
