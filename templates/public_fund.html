@@ -4,6 +4,7 @@
 	<title>Public Fund</title>
 	<!-- css -->
 	<link rel="stylesheet" type="text/css" href="../static/css/public_fund.css">
+	<!-- <link rel="stylesheet" href="{{ url_for('static', filename='../static/css/public_fund.css') }}"> -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<!-- responsive -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,14 +29,15 @@
 			<div id="ytm-wrap">
 				<div id="ytm-search">
 					<div class="fund-name">
-						<input class="search-input" id="fund-input" type="text" placeholder="ex). 교보악사Tomorrow장기국공채증권자투자신탁[채권]">
+						<input class="search-input" id="fund-input" type="text">
 						<div class="fund-name-search" onclick="setfund()"></div>
 					</div>
 				</div> 
 			</div> 
 			<ul class="fund-list-group"></ul>  
 			<p>
-				현재 운영중인 펀드를 검색해보세요!
+				현재 운영중인 펀드를 검색해보세요! <br>
+				ex). 교보, 삼성, 골든 등
 			</p>
 		</div>
 	</div> 
@@ -55,6 +57,7 @@
 				</div>
 			</div> 
 			<div class="fund-track-records-wrap"></div> 
+			<img src="../static/img/plus-btn.png" class="mobile-tablet-only">
 		</div> 
 	</div>
 </body>

@@ -1,11 +1,10 @@
 let all_fund_info;
 
 $(document).ready(function() {
-
 	$("#wrap").css("display", "none");
 	$(".fund-name-search").on("click", function(){
 		let fund_input_val = $("#fund-input").val();
-		console.log(fund_input_val);
+		// console.log(fund_input_val);
 		$("#wrap").css("display", "block");
 		$("html, body").animate(
 			{scrollTop:$("#wrap").offset().top
@@ -59,6 +58,15 @@ $(document).ready(function() {
 	});
 });
 
+// function mobileView(){
+// 	if ($(window).width() < 481){
+// 		$("#fund-input").attr("placeholder", "ex). 교보악사");
+// 		$("#fund-input").css("color", "transparent");
+// 	} else{
+// 		$("#fund-input").attr("placeholder", "ex). ..");
+// 	}
+// }
+
 function getfund(input){
 	let fund_name = $(input).text();
 	$("#fund-input").val(fund_name);
@@ -88,10 +96,9 @@ function setfund() {
 													現 운용펀드\
 												</h2>\
 											</div>\
-											<br>\
 											<div class="fund-info-current">\
 												<p>\
-												<span>'+fund_name_input+'</span> ('+company_name+')\
+												'+fund_name_input+'</span> ('+company_name+')\
 												</p>\
 												<span class="fund-director">\
 													<b>책임 운용역 : </b>'+manager_name+'\
@@ -140,6 +147,19 @@ function setfund() {
 		}
 	});
 }
+
+// 과거 펀드 트랙 4개씩 보여준느 반응형
+$(window).resize(function(){
+	if ($(window).width() < 901) {
+		console.log("hi");
+		$(".mobile-tablet-only").on("click", function(){
+			$(".fund-track-records-wrap div:hidden").slice(0,4).show();
+			if($(".fund-track-records-wrap div").length == $(".fund-track-records-wrap div:visible").length){
+				$(".mobile-tablet-only").css("display", "none");
+			}
+		});
+	}
+});
 
 
 
