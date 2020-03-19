@@ -11,7 +11,7 @@ db = client.publicfund                    # 'publicfund'라는 이름의 db를 �
 ## HTML을 주는 부분
 @app.route('/')
 def home():
-   return render_template('public_fund_back.html')
+   return render_template('public_fund.html')
 
 
 #검색창에 클라이언트가 입력을 하면, 그때 자동완성 List 띄어주는 API

@@ -40,6 +40,15 @@ $(document).ready(function() {
 	    });
   	});
 
+  	// let inputEnter = document.getElementById("fund-input");
+  	// inputEnter.addEventListener("keyup",function(event){
+  	// 	if(event.keyCode === 13){
+  	// 		event.preventDefault();
+  	// 		document.getElementById("fund-name-search");
+  	// 		alert("hi");
+  	// 	}
+  	// });
+
 	// 펀드 리스트 붙여주기
 	$.ajax({
 	    type: "GET",
@@ -79,16 +88,17 @@ function setfund() {
 	let start_date = this_fund_info["start_date"];
 	let end_date = this_fund_info["end_date"];
 	let fund_yield = this_fund_info["fund_yield"];
+	//기준일을 "오늘" 날짜로 나타내줌
+	let d = new Date();
+    let date = d.getDate();
+    let month = d.getMonth() + 1;
+    let year = d.getFullYear();
+    let dateStr = year + "-" + month + "-"+ date;
 
 	let fund_manager_current_info_wrap = '<div class="current-info-box">\
-											<div>\
-												<h2>\
-													現 운용펀드\
-												</h2>\
-											</div>\
 											<div class="fund-info-current">\
-												<p>\
-												'+fund_name_input+'</span> ('+company_name+')\
+												<p class="fund-name-info">\
+												'+fund_name_input+' ('+company_name+')\
 												</p>\
 												<span class="fund-director">\
 													<b>책임 운용역 : </b>'+manager_name+'\
@@ -97,7 +107,7 @@ function setfund() {
 													<b>투자일 : </b>'+start_date+'\
 												</span>\
 												<span class="today-date">\
-													<b>기준일 : </b>'+end_date+'\
+													<b>기준일 : </b>'+dateStr+'\
 												</span>\
 												<span class="fund-yield">\
 													<b>누적 수익률 : </b>'+fund_yield+'\
@@ -106,14 +116,14 @@ function setfund() {
 										</div>'
 
 	$(".fund-manager-current-info-wrap").html(fund_manager_current_info_wrap);
-	$(".fund-manager-name > span").text(manager_name + " 펀드매니저의 旣 운영완료 펀드");
-
+	$(".fund-manager-name > span").text(manager_name + " 펀드매니저의 과거 운영 수익률");
 
 	$.ajax({
 		type: "POST",
 		url: "/fund",
 		data: {fund_name_give:fund_name},
 		success: function(response){
+			// let mobileMediaQuery = window.matchMedia("(max-width: 600px)");
 			$(".fund-track-records-wrap").empty();
 			for(let i = 0; i < response.length; i++){
 				let fund_name_db = response[i]["fund_name"];
@@ -121,17 +131,41 @@ function setfund() {
 				let end_date = response[i]["end_date"];
 				let fund_yield = response[i]["fund_yield"];
 
-				let fund_track_record = '<div class="fund-track-record">\
+				// if (fund_yield > 0){
+			 //    	$(".record-info-data-table-right").css("color", "#ff1515");
+			 //    } else{
+			 //    	$(".record-info-data-table-right").css("color", "#1212ff");
+			 //    }
+
+			    let mobileMediaQuery = window.matchMedia("(max-width: 600px)");
+
+			    if(mobileMediaQuery.matches){
+			    	let fund_track_record = '<div class="fund-track-record">\
 											<div class="record-info">\
-												<ul>\
-													<li class="fund-name-padding-bottom"><b>펀드명 :</b> ' +fund_name_db+'</li>\
-													<li><b>투자 날짜 :</b> ' +start_date+'</li>\
-													<li><b>회수 날짜 :</b> ' +end_date+'</li>\
-													<li><b>만기 수익률 :</b> ' +fund_yield+'</li>\
-												</ul>\
+												<div class="record-info-data-table-left">\
+													<p class="fund-name-data-table">'+fund_name_db+'</p>\
+													<p>투자 날짜 : '+start_date+'</p>\
+													<p>회수 날짜 : '+end_date+'</p>\
+													<p>만기 수익률 : '+fund_yield+'</p>\
+												</div>\
 											</div>\
 										</div>'
-				$(".fund-track-records-wrap").append(fund_track_record);
+					$(".fund-track-records-wrap").append(fund_track_record);
+			    } else{
+			    	let fund_track_record = '<div class="fund-track-record">\
+											<div class="record-info">\
+												<div class="record-info-data-table-left">\
+													<p class="fund-name-data-table">'+fund_name_db+'</p>\
+													<p>투자 날짜 :' +start_date+'</p>\
+													<p>회수 날짜 : ' +end_date+'</p>\
+												</div>\
+												<div class="record-info-data-table-right">\
+													<p><b>'+fund_yield+'</b></p>\
+												</div>\
+											</div>\
+										</div>'
+					$(".fund-track-records-wrap").append(fund_track_record);
+			    }
 			}
 			
 		}

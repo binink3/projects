@@ -2,6 +2,9 @@ import time
 import os
 import os.path
 import shutil
+import xlrd
+from openpyxl.workbook import Workbook
+from openpyxl.reader.excel import load_workbook, InvalidFileException
 
 from datetime import datetime
 from selenium import webdriver
@@ -11,17 +14,19 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
-
 now = datetime.now()
 date = now.strftime("%Y%m%d")
 
 download_path = '/Users/giubinkang/Downloads'
-file1 = '펀드매니저 상세정보_운용펀드(기준일)_'+ date + '.xls'
-file2 = '펀드매니저 상세정보_운용펀드(과거3년)_'+ date + '.xls'
+file1 = '펀드매니저 상세정보_운용펀드(기준일)_' + date + '.xls'
+file2 = '펀드매니저 상세정보_운용펀드(과거3년)_' + date + '.xls'
+file_info = [file1, file2]
+
 
 def dealing_alert(browser):
     try:
-        WebDriverWait(browser, 3).until(EC.alert_is_present(), 'Timed out waiting for PA creation ' + 'confirmation popup to appear.')
+        WebDriverWait(browser, 3).until(EC.alert_is_present(),
+                                        'Timed out waiting for PA creation ' + 'confirmation popup to appear.')
         alert = browser.switch_to.alert
         alert.accept()
         print("alert accepted")
@@ -33,11 +38,34 @@ def move_files(dir_path, file_prefix, filename):
     if os.path.exists(download_path + '/' + filename):
         shutil.move(download_path + '/' + filename, dir_path + '/' + file_prefix + filename)
         print(filename + " moved to " + dir_path)
+        return dir_path + '/' + file_prefix + filename
     else:
         print(filename + " does not exist.")
+        return "failure"
 
-def convert2xlsx(filename):
-    pass
+
+def convert_xls_to_xlsx(filename):
+    # first open using xlrd
+    book = xlrd.open_workbook(filename)
+    xlsx_filename = filename[:filename.rfind('.')]
+    index = 0
+    nrows, ncols = 0, 0
+    while nrows * ncols == 0:
+        sheet = book.sheet_by_index(index)
+        nrows = sheet.nrows
+        ncols = sheet.ncols
+        index += 1
+
+    # prepare a xlsx sheet
+    book1 = Workbook()
+    sheet1 = book1.active
+
+    for row in range(0, nrows):
+        for col in range(0, ncols):
+            sheet1.cell(row=row + 1, column=col + 1).value = sheet.cell_value(row, col)
+
+    book1.save(filename='{}.xlsx'.format(xlsx_filename))
+    return book1
 
 
 def download_excel(driver, els):
@@ -56,9 +84,8 @@ def download_excel(driver, els):
             time.sleep(3)
             name = driver.find_element_by_id('fundMgr').text
             comp = driver.find_element_by_id('compNm').text
-            file_prefix = comp + '_' + name + '_'
             print(name, comp)
-
+            file_prefix = comp + '_' + name + '_'
             dir_path = os.getcwd()
 
             driver.find_element_by_id('image111').click()
@@ -72,13 +99,18 @@ def download_excel(driver, els):
             driver.find_element_by_id('image115').click()
             dealing_alert(driver)
 
-            move_files(dir_path, file_prefix, file1)
-            move_files(dir_path, file_prefix, file2)
+            for file in file_info:
+                filename = move_files(dir_path, file_prefix, file)
+                if filename == 'failure':
+                    continue
+                convert_xls_to_xlsx(filename)
 
             driver.switch_to.default_content()
             close_btn = driver.find_element_by_id('textbox1987456321')
             close_btn.click()
         i += 1
+
+
 '''
 1. 파일 다운로드
     1. 페이지 접속
@@ -86,7 +118,7 @@ def download_excel(driver, els):
     3. 매 페이지 누르면서
         1. 파일 두 개 다운로드
         2. 펀드매니저_회사명 폴더 만든 다음에 다운 받은 파일 두 개를 이동
-        
+
 2. 파일 DB에 저장
     1. 펀드매니저_회사명 폴더마다
         1. 파일 읽기
@@ -109,15 +141,12 @@ driver = webdriver.Chrome('/Users/giubinkang/Downloads/chromedriver')
 url = 'http://dis.kofia.or.kr/websquare/index.jsp?w2xPath=/wq/fundMgr/DISFundMgrSrch.xml&divisionId=MDIS03001002000000&serviceId=SDIS03001002000'
 driver.get(url)
 
-
 element = WebDriverWait(driver, 300).until(EC.element_to_be_clickable((By.ID, 'btnSearImg')))
 driver.find_element_by_id('btnSearImg').click()
 
 element = WebDriverWait(driver, 300).until(EC.element_to_be_clickable((By.CLASS_NAME, 'w2grid_image')))
 
 els = driver.find_elements_by_class_name('w2grid_image')
-
-
 
 try:
     for down in range(70):
@@ -130,7 +159,6 @@ try:
 finally:
     driver.quit()
 
-
 # btnSearImg 클릭 img.w2grid_image
 # 타겟 URL을 읽어서 HTML를 받아오고,
 # headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
@@ -140,7 +168,6 @@ finally:
 # # soup이라는 변수에 "파싱 용이해진 html"이 담긴 상태가 됨
 # # 이제 코딩을 통해 필요한 부분을 추출하면 된다.
 # soup = BeautifulSoup(data.text, 'html.parser')
-
 
 
 
