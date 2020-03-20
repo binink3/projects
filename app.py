@@ -24,7 +24,7 @@ def f_list_active_name():
 @app.route('/fund', methods=['POST'])
 def fm_past():
     fund_name_recieve = request.form['fund_name_give']
-    target_fund_info = db.funds.find_one({'Status': "Active", 'fund_name':fund_name_recieve}, {'_id': 0})
+    target_fund_info = db.funds.find_one({'Status': "Active", 'fund_name':fund_name_recieve}, {'_id': 0}) ##id값은 가져오지 않겠다
 
     funds_info = list(db.funds.find({'Status': "Past",'manager_name':target_fund_info['manager_name']}, {'_id': 0}))
 
