@@ -3,8 +3,7 @@
 <head>
 	<title>Public Fund</title>
 	<!-- css -->
-	<link rel="stylesheet" type="text/css" href="../static/css/public_fund.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/common.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/public_fund_back.css">
 	<!-- <link rel="stylesheet" href="{{ url_for('static', filename='../static/css/public_fund.css') }}"> -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<!-- responsive -->
@@ -16,9 +15,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="../static/js/public_fund.js"></script>
-	<script data-ad-client="ca-pub-8170584643136293" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<!-- favicon -->
-	<link rel="icon" href="../static/img/favicon.ico" type="image/ico" sizes="16x16">
+	<link rel="icon" href="../static/img/favicon.jpeg" type="image/jpeg" sizes="16x16">
 </head>
 <body>
 	<div id="first-page-scroll">
@@ -32,7 +30,7 @@
 				<div id="ytm-search">
 					<div class="fund-name">
 						<input class="search-input" id="fund-input" type="text">
-						<div class="fund-name-search" id="fund-name-search" onclick="setfund()"></div>
+						<div class="fund-name-search" onclick="setfund()"></div>
 					</div>
 				</div> 
 			</div> 
@@ -51,28 +49,16 @@
 		</div> 
 		<div id="fund-records-info" class="fund-records-info">
 			<div class="fund-manager-info-wrap">
+				<h2 style="margin-bottom: 20px;">
+					과거 Record 수익률 추적  
+				</h2>
 				<div class="fund-manager-name">
 					<span></span>
 				</div>
 			</div> 
-			<div class="fund-name-ytm-wrap">
-				<div class="fund-name-ytm">
-					<div class="fund-names">
-						펀드명
-					</div>
-					<div class="yield-to-maturity">
-						만기 수익률
-					</div>
-				</div>
-			</div>
 			<div class="fund-track-records-wrap"></div> 
 			<img src="../static/img/plus-btn.png" class="mobile-tablet-only">
 		</div> 
-		<div id="advertisement-wrap">
-			<div class="advertisement">
-				
-			</div>
-		</div>
 	</div>
 </body>
 </html>

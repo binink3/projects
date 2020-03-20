@@ -6,6 +6,8 @@ from pymongo import MongoClient           # pymongo를 임포트 하기(패키�
 client = MongoClient('mongodb://localhost', 27017)
 db = client.publicfund                    # 'publicfund'라는 이름의 db를 만듭니다.
 
+
+
 ## HTML을 주는 부분
 @app.route('/')
 def home():
@@ -15,7 +17,7 @@ def home():
 #검색창에 클라이언트가 입력을 하면, 그때 자동완성 List 띄어주는 API
 @app.route('/fund', methods=['GET'])
 def f_list_active_name():
-    result = list(db.funds.find({'Status': "Active"}, {'_id': 0}))
+    result = list(db.funds.find({'Status': "Active"}, {'_id': 0}))  # 필터링 리스트
     return jsonify(result)
 
 
@@ -26,7 +28,7 @@ def fm_past():
     fund_name_recieve = request.form['fund_name_give']
     target_fund_info = db.funds.find_one({'Status': "Active", 'fund_name':fund_name_recieve}, {'_id': 0}) ##id값은 가져오지 않겠다
 
-    funds_info = list(db.funds.find({'Status': "Past",'manager_name':target_fund_info['manager_name']}, {'_id': 0}))
+    funds_info = list(db.funds.find({'Status': "Past",'manager_name':target_fund_info['manager_name']}, {'_id': 0}))  # 현재 운영중인 펀드매니저 이름이랑 매칭 되는 과거 내역들을 가져와라
 
     return jsonify(funds_info)
 

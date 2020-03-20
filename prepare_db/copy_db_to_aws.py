@@ -8,4 +8,7 @@ db2 = client2.publicfund                    # 'publicfund'라는 이름의 db를
 
 
 infos = list(db1.funds.find({},{'_id':0}))
-db2.funds.insert_many(infos)
+db2.funds.insert_many(infos)  # robot3T 안에 있는 publicfund shell 안에 collection 안에 있는 document 이름이 funds
+
+
+# aws 에다가 올려주기 (서버에서도 로컬처럼 보여주고 돌리기 위해서)
