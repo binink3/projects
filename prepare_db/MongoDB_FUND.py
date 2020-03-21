@@ -16,7 +16,7 @@ file_list_xlsx = [file for file in file_list  #
 for name in file_list_xlsx:
     file_name = path+'/'+name  #맥, 윈도우 계속 수정해야한다.
     work_book = load_workbook(file_name)  # 파일의 제목을 읽어오는 작업
-    work_sheet = work_book['sheet']  # 엑셀 파일을 열었을때 안에 있는 정보들을 읽어와라
+    work_sheet = work_book['Sheet']  # 엑셀 파일을 열었을때 안에 있는 정보들을 읽어와라
 
     company_name = name.split('_')[0]
     manager_name = name.split('_')[1]
@@ -39,7 +39,7 @@ for name in file_list_xlsx:
                     'fund_name' : fund_name_past,
                     'start_date' : fund_start_past,
                     'end_date' : fund_end_past,
-                    'fund_yield' : fund_yield_past+'%',
+                    'fund_yield_past' : fund_yield_past+'%',
                     'Status' : 'Past'
                 }
 
@@ -55,7 +55,7 @@ for name in file_list_xlsx:
                 fund_id = row[0].value if row[0].value is not None else '0'
                 fund_name = row[1].value if row[1].value is not None else '0'
                 fund_start = row[5].value if row[5].value is not None else '0'
-                fund_yield = row[14].value if row[14].value is not None else '0'
+                fund_yield = row[13].value if row[13].value is not None else '0'
 
                 doc2 = {
                     'company_name' : company_name,

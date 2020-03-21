@@ -6,10 +6,6 @@ import xlrd
 from openpyxl.workbook import Workbook
 from openpyxl.reader.excel import load_workbook, InvalidFileException
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4bd07795997dc8f2a8f215cbba7b826e05a42d01
 from datetime import datetime
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -18,24 +14,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
-<<<<<<< HEAD
-
 now = datetime.now()
 date = now.strftime("%Y%m%d")
 
 download_path = 'C:/Users/lucke/Downloads'
-file1 = '펀드매니저 상세정보_운용펀드(기준일)_'+ date + '.xls'
-file2 = '펀드매니저 상세정보_운용펀드(과거3년)_'+ date + '.xls'
-file_info = [file1, file2]
-
-def dealing_alert(browser):
-    try:
-        WebDriverWait(browser, 3).until(EC.alert_is_present(), 'Timed out waiting for PA creation ' + 'confirmation popup to appear.')
-=======
-now = datetime.now()
-date = now.strftime("%Y%m%d")
-
-download_path = '/Users/giubinkang/Downloads'
 file1 = '펀드매니저 상세정보_운용펀드(기준일)_' + date + '.xls'
 file2 = '펀드매니저 상세정보_운용펀드(과거3년)_' + date + '.xls'
 file_info = [file1, file2]
@@ -45,7 +27,6 @@ def dealing_alert(browser):
     try:
         WebDriverWait(browser, 3).until(EC.alert_is_present(),
                                         'Timed out waiting for PA creation ' + 'confirmation popup to appear.')
->>>>>>> 4bd07795997dc8f2a8f215cbba7b826e05a42d01
         alert = browser.switch_to.alert
         alert.accept()
         print("alert accepted")
@@ -128,11 +109,8 @@ def download_excel(driver, els):
             close_btn = driver.find_element_by_id('textbox1987456321')
             close_btn.click()
         i += 1
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 4bd07795997dc8f2a8f215cbba7b826e05a42d01
 '''
 1. 파일 다운로드
     1. 페이지 접속
@@ -140,11 +118,7 @@ def download_excel(driver, els):
     3. 매 페이지 누르면서
         1. 파일 두 개 다운로드
         2. 펀드매니저_회사명 폴더 만든 다음에 다운 받은 파일 두 개를 이동
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> 4bd07795997dc8f2a8f215cbba7b826e05a42d01
 2. 파일 DB에 저장
     1. 펀드매니저_회사명 폴더마다
         1. 파일 읽기
@@ -162,19 +136,11 @@ driver
 element
     - 
 '''
-<<<<<<< HEAD
 driver = webdriver.Chrome('C:/Users/lucke/Downloads/chromedriver_win32/chromedriver.exe')
-=======
-driver = webdriver.Chrome('/Users/giubinkang/Downloads/chromedriver')
->>>>>>> 4bd07795997dc8f2a8f215cbba7b826e05a42d01
 
 url = 'http://dis.kofia.or.kr/websquare/index.jsp?w2xPath=/wq/fundMgr/DISFundMgrSrch.xml&divisionId=MDIS03001002000000&serviceId=SDIS03001002000'
 driver.get(url)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4bd07795997dc8f2a8f215cbba7b826e05a42d01
 element = WebDriverWait(driver, 300).until(EC.element_to_be_clickable((By.ID, 'btnSearImg')))
 driver.find_element_by_id('btnSearImg').click()
 
@@ -182,11 +148,6 @@ element = WebDriverWait(driver, 300).until(EC.element_to_be_clickable((By.CLASS_
 
 els = driver.find_elements_by_class_name('w2grid_image')
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 4bd07795997dc8f2a8f215cbba7b826e05a42d01
 try:
     for down in range(70):
         download_excel(driver, els)
@@ -198,10 +159,6 @@ try:
 finally:
     driver.quit()
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4bd07795997dc8f2a8f215cbba7b826e05a42d01
 # btnSearImg 클릭 img.w2grid_image
 # 타겟 URL을 읽어서 HTML를 받아오고,
 # headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
@@ -211,9 +168,3 @@ finally:
 # # soup이라는 변수에 "파싱 용이해진 html"이 담긴 상태가 됨
 # # 이제 코딩을 통해 필요한 부분을 추출하면 된다.
 # soup = BeautifulSoup(data.text, 'html.parser')
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 4bd07795997dc8f2a8f215cbba7b826e05a42d01
