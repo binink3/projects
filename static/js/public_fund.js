@@ -87,7 +87,6 @@ function setfund() {
 	let start_date = this_fund_info["start_date"];
 	let end_date = this_fund_info["end_date"];
 	let fund_yield = this_fund_info["fund_yield"];
-	let fund_yield_past = this_fund_info["fund_yield_past"];
 	//기준일을 "오늘" 날짜로 나타내줌
 	let d = new Date();
     let date = d.getDate();
@@ -110,7 +109,7 @@ function setfund() {
 													<b>기준일 : </b>'+dateStr+'\
 												</span>\
 												<span class="fund-yield">\
-													<b>누적 수익률 : </b>'+fund_yield_past+'\
+													<b>누적 수익률 : </b>'+fund_yield+'%\
 												</span>\
 											</div>\
 										</div>'
