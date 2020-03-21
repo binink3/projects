@@ -39,7 +39,7 @@ for name in file_list_xlsx:
                     'fund_name' : fund_name_past,
                     'start_date' : fund_start_past,
                     'end_date' : fund_end_past,
-                    'fund_yield_past' : fund_yield_past+'%',
+                    'fund_yield' : fund_yield_past,
                     'Status' : 'Past'
                 }
 
@@ -64,7 +64,7 @@ for name in file_list_xlsx:
                     'fund_name' : fund_name,
                     'start_date' : fund_start,
                     'end_date' : '-',
-                    'fund_yield' : fund_yield+'%',
+                    'fund_yield' : fund_yield,
                     'Status' : 'Active'
                 }
 

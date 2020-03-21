@@ -1,32 +1,43 @@
-import time
-import os
-import os.path
-import shutil
-import xlrd
-from openpyxl.workbook import Workbook
-from openpyxl.reader.excel import load_workbook, InvalidFileException
-
-from datetime import datetime
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
-now = datetime.now()
-date = now.strftime("%Y%m%d")
+import time
+import os
+import os.path
+import shutil
+import xlrd
+import platform
+from openpyxl.workbook import Workbook
+from datetime import datetime
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 
 download_path = 'C:/Users/lucke/Downloads'
+now = datetime.now()
+date = now.strftime("%Y%m%d")
 file1 = '펀드매니저 상세정보_운용펀드(기준일)_' + date + '.xls'
 file2 = '펀드매니저 상세정보_운용펀드(과거3년)_' + date + '.xls'
 file_info = [file1, file2]
 
 
+def get_driver_path():
+    which_os = platform.system()
+    if which_os == 'Linux':
+        return '/usr/local/bin/chromedriver'
+    elif which_os == 'Windows':
+        return os.path.join(os.getcwd(), 'chromedriver.exe')
+    else:
+        return os.path.join(os.getcwd(), 'chromedriver')
+
+
 def dealing_alert(browser):
     try:
-        WebDriverWait(browser, 3).until(EC.alert_is_present(),
-                                        'Timed out waiting for PA creation ' + 'confirmation popup to appear.')
+        WebDriverWait(browser, 3).until(EC.alert_is_present(), 'Timed out waiting for PA creation ' + 'confirmation popup to appear.')
         alert = browser.switch_to.alert
         alert.accept()
         print("alert accepted")
@@ -35,13 +46,15 @@ def dealing_alert(browser):
 
 
 def move_files(dir_path, file_prefix, filename):
-    if os.path.exists(download_path + '/' + filename):
-        shutil.move(download_path + '/' + filename, dir_path + '/' + file_prefix + filename)
+    download_filepath = os.path.join(download_path, filename)
+    moved_filepath = os.path.join(dir_path, file_prefix + filename)
+    if os.path.exists(download_filepath):
+        shutil.move(download_filepath, moved_filepath)
         print(filename + " moved to " + dir_path)
-        return dir_path + '/' + file_prefix + filename
+        return True
     else:
         print(filename + " does not exist.")
-        return "failure"
+        return False
 
 
 def convert_xls_to_xlsx(filename):
@@ -72,99 +85,112 @@ def download_excel(driver, els):
     i = 0
     cnt = 0
     for el in els:
+        # 10명의 정보만를 다운로드하고 함수를 종료한다.
         if cnt >= 10:
             return
+
+        # 사람 당 짝수 번째 돋보기만 클릭한다.
         if (i % 2 == 0):
+            # 다운로드한 사람 수에 1을 추가한다.
             cnt += 1
+            # 짝수 번째 돋보기를 클릭한다.
             el.click()
-            time.sleep(3)
+            # 팝업 창이 나타날 때까지 기다린다.
+            time.sleep(5)
+            # 팝업을 검색한다.
             popup = driver.find_element_by_tag_name('iframe')
+            # 기본 브라우저를 팝업으로 전환한다. (다운로드하기 위해서 반드시 필요)
             driver.switch_to.frame(popup)
 
-            time.sleep(3)
+            # 펀드매니저 정보가 뜰 때까지 기다린다.
+            time.sleep(5)
+            # 펀드매니저의 이름, 펀드매니저의 회사명을 수집한다.
             name = driver.find_element_by_id('fundMgr').text
             comp = driver.find_element_by_id('compNm').text
-            print(name, comp)
-            file_prefix = comp + '_' + name + '_'
-            dir_path = os.getcwd()
 
+            # 기준일 파일을 다운로드한다.
             driver.find_element_by_id('image111').click()
+            # 데이터가 없다는 alert가 뜰 경우를 대비한다.
+            dealing_alert(driver)
+            # 다운로드가 완료될 때까지 기다린다.
+            time.sleep(10)
 
-            # # li#tabControl1_tab_dtlTtabs2
+            # 과거3년 파일을 위한 탭 버튼을 찾는다.
             li = driver.find_element_by_id('tabControl1_tab_dtlTtabs2')
             btn = li.find_element_by_tag_name('a')
+            # 과거3년 파일을 위한 탭 버튼을 클릭한다.
             btn.click()
-            time.sleep(3)
+            # 정보가 뜰 때까지 기다린다.
+            time.sleep(5)
 
+            # 과거3년 파일을 다운로드한다.
             driver.find_element_by_id('image115').click()
+            # 데이터가 없다는 alert가 뜰 경우를 대비한다.
             dealing_alert(driver)
+            # 다운로드가 완료될 때까지 기다린다.
+            time.sleep(10)
+
+            # 다운로드가 완료된 파일들은 이름을 바꾼다.
+            # 우선 scrap.py 파일이 위치한 경로를 획득한다.
+            dir_path = os.getcwd()
+            # 다음으로 다운로드할 파일명의 prefix를 만든다.
+            file_prefix = comp + '_' + name + '_'
 
             for file in file_info:
-                filename = move_files(dir_path, file_prefix, file)
-                if filename == 'failure':
+                # 다운로드가 완료된 파일들의 이름을 바꾸고 위치를 옮긴다.
+                # 다운로드가 실패한 경우 xls->xlsx 과정을 거치지 않는다.
+                if not move_files(dir_path, file_prefix, file):
                     continue
-                convert_xls_to_xlsx(filename)
+                moved_filepath = os.path.join(dir_path, file_prefix + file)
+                # xls 파일을 xlsx로 바꾼다.
+                convert_xls_to_xlsx(moved_filepath)
 
+            # 팝업을 벗어나 기본 브라우저로 돌아간다.
             driver.switch_to.default_content()
+            # 팝업 닫기 버튼을 찾는다.
             close_btn = driver.find_element_by_id('textbox1987456321')
+            # 팝업을 닫는다.
             close_btn.click()
+
         i += 1
 
+# 크롬드라이버 경로 획득
+driver_path = get_driver_path()
+# 크롬드라이버 설정
+driver = webdriver.Chrome(driver_path)
 
-'''
-1. 파일 다운로드
-    1. 페이지 접속
-    2. 목록 스캔
-    3. 매 페이지 누르면서
-        1. 파일 두 개 다운로드
-        2. 펀드매니저_회사명 폴더 만든 다음에 다운 받은 파일 두 개를 이동
-
-2. 파일 DB에 저장
-    1. 펀드매니저_회사명 폴더마다
-        1. 파일 읽기
-        2. DB 저장
-'''
-
-'''
-driver
-    - session_id {str}
-    - current_url {str}
-    - page_source {str}
-    - title {str}
-    - name {str} : browser
-
-element
-    - 
-'''
-driver = webdriver.Chrome('C:/Users/lucke/Downloads/chromedriver_win32/chromedriver.exe')
-
+# 접속할 url
 url = 'http://dis.kofia.or.kr/websquare/index.jsp?w2xPath=/wq/fundMgr/DISFundMgrSrch.xml&divisionId=MDIS03001002000000&serviceId=SDIS03001002000'
+# 접속
 driver.get(url)
 
-element = WebDriverWait(driver, 300).until(EC.element_to_be_clickable((By.ID, 'btnSearImg')))
+# '검색' 버튼이 클릭 가능할 때까지 기다린다, 최대 300초
+WebDriverWait(driver, 300).until(EC.element_to_be_clickable((By.ID, 'btnSearImg')))
+# '검색' 버튼을 찾고 클릭한다.
 driver.find_element_by_id('btnSearImg').click()
 
-element = WebDriverWait(driver, 300).until(EC.element_to_be_clickable((By.CLASS_NAME, 'w2grid_image')))
-
+# 검색 결과가 조회될 때까지 기다린다, 최대 300초
+WebDriverWait(driver, 300).until(EC.element_to_be_clickable((By.CLASS_NAME, 'w2grid_image')))
+# 검색 결과를 찾아서 els에 저장한다
 els = driver.find_elements_by_class_name('w2grid_image')
 
 try:
+    # 10개 씩 70번 다운로드한다.
     for down in range(70):
+        # 1. els에 담긴 10개의 파일을 다운로드한다.
         download_excel(driver, els)
+
+        # 2. 기본 브라우저로 되돌아온다.
         driver.switch_to.default_content()
+
+        # 3. 다음 10개 로드를 위해 우선 첫 번째 요소를 클릭한다.
         nth = driver.find_elements_by_class_name('gridBodyDefault')[1]
         nth.click()
+
+        # 4. 아래 방향키를 클릭하여 그 다음 10개를 로드한다.
         nth.send_keys(Keys.PAGE_DOWN)
+
+        # 5. 그 다음 10개를 els에 저장한다.
         els = driver.find_elements_by_class_name('w2grid_image')
 finally:
     driver.quit()
-
-# btnSearImg 클릭 img.w2grid_image
-# 타겟 URL을 읽어서 HTML를 받아오고,
-# headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-# data = requests.get(url=url,headers=headers)
-#
-# # HTML을 BeautifulSoup이라는 라이브러리를 활용해 검색하기 용이한 상태로 만듦
-# # soup이라는 변수에 "파싱 용이해진 html"이 담긴 상태가 됨
-# # 이제 코딩을 통해 필요한 부분을 추출하면 된다.
-# soup = BeautifulSoup(data.text, 'html.parser')
