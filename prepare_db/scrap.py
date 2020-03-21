@@ -17,7 +17,7 @@ from selenium.webdriver.common.keys import Keys
 now = datetime.now()
 date = now.strftime("%Y%m%d")
 
-download_path = '/Users/giubinkang/Downloads'
+download_path = 'C:/Users/lucke/Downloads'
 file1 = '펀드매니저 상세정보_운용펀드(기준일)_' + date + '.xls'
 file2 = '펀드매니저 상세정보_운용펀드(과거3년)_' + date + '.xls'
 file_info = [file1, file2]
@@ -136,7 +136,7 @@ driver
 element
     - 
 '''
-driver = webdriver.Chrome('/Users/giubinkang/Downloads/chromedriver')
+driver = webdriver.Chrome('C:/Users/lucke/Downloads/chromedriver_win32/chromedriver.exe')
 
 url = 'http://dis.kofia.or.kr/websquare/index.jsp?w2xPath=/wq/fundMgr/DISFundMgrSrch.xml&divisionId=MDIS03001002000000&serviceId=SDIS03001002000'
 driver.get(url)
@@ -168,6 +168,3 @@ finally:
 # # soup이라는 변수에 "파싱 용이해진 html"이 담긴 상태가 됨
 # # 이제 코딩을 통해 필요한 부분을 추출하면 된다.
 # soup = BeautifulSoup(data.text, 'html.parser')
-
-
-
