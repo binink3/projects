@@ -3,7 +3,6 @@ let all_fund_info;
 $(document).ready(function() {
 	$("#wrap").css("display", "none");
 	$(".fund-name-search").on("click", function(){
-		let fund_input_val = $("#fund-input").val();
 		$("#wrap").css("display", "block");
 		$("html, body").animate(
 			{scrollTop:$("#wrap").offset().top
@@ -40,14 +39,14 @@ $(document).ready(function() {
 	    });
   	});
 
-  	// let inputEnter = document.getElementById("fund-input");
-  	// inputEnter.addEventListener("keyup",function(event){
-  	// 	if(event.keyCode === 13){
-  	// 		event.preventDefault();
-  	// 		document.getElementById("fund-name-search");
-  	// 		alert("hi");
-  	// 	}
-  	// });
+  	let inputEnter = document.getElementById("fund-input");
+  	inputEnter.addEventListener("keyup",function(event){
+  		if(event.keyCode === 13){
+  			event.preventDefault();
+  			document.getElementById("fund-name-search");
+  			// alert("hi");
+  		}
+  	});
 
 	// 펀드 리스트 붙여주기
 	$.ajax({
@@ -88,6 +87,7 @@ function setfund() {
 	let start_date = this_fund_info["start_date"];
 	let end_date = this_fund_info["end_date"];
 	let fund_yield = this_fund_info["fund_yield"];
+	let fund_yield_past = this_fund_info["fund_yield_past"];
 	//기준일을 "오늘" 날짜로 나타내줌
 	let d = new Date();
     let date = d.getDate();
@@ -110,7 +110,7 @@ function setfund() {
 													<b>기준일 : </b>'+dateStr+'\
 												</span>\
 												<span class="fund-yield">\
-													<b>누적 수익률 : </b>'+fund_yield+'\
+													<b>누적 수익률 : </b>'+fund_yield_past+'\
 												</span>\
 											</div>\
 										</div>'
@@ -123,20 +123,12 @@ function setfund() {
 		url: "/fund",
 		data: {fund_name_give:fund_name},
 		success: function(response){
-			// let mobileMediaQuery = window.matchMedia("(max-width: 600px)");
 			$(".fund-track-records-wrap").empty();
 			for(let i = 0; i < response.length; i++){
 				let fund_name_db = response[i]["fund_name"];
 				let start_date = response[i]["start_date"];
 				let end_date = response[i]["end_date"];
 				let fund_yield = response[i]["fund_yield"];
-
-				// if (fund_yield > 0){
-			 //    	$(".record-info-data-table-right").css("color", "#ff1515");
-			 //    } else{
-			 //    	$(".record-info-data-table-right").css("color", "#1212ff");
-			 //    }
-
 			    let mobileMediaQuery = window.matchMedia("(max-width: 600px)");
 
 			    if(mobileMediaQuery.matches){
@@ -144,9 +136,9 @@ function setfund() {
 											<div class="record-info">\
 												<div class="record-info-data-table-left">\
 													<p class="fund-name-data-table">'+fund_name_db+'</p>\
-													<p>투자 날짜 : '+start_date+'</p>\
-													<p>회수 날짜 : '+end_date+'</p>\
-													<p>만기 수익률 : '+fund_yield+'</p>\
+													<p>투자 날짜 : ' +start_date+'</p>\
+													<p>회수 날짜 : ' +end_date+'</p>\
+													<p style="display:inline;">만기 수익률 : </p><span id=yield' + i +'>' +fund_yield+'</span>\
 												</div>\
 											</div>\
 										</div>'
@@ -156,15 +148,20 @@ function setfund() {
 											<div class="record-info">\
 												<div class="record-info-data-table-left">\
 													<p class="fund-name-data-table">'+fund_name_db+'</p>\
-													<p>투자 날짜 :' +start_date+'</p>\
+													<p>투자 날짜 : ' +start_date+'</p>\
 													<p>회수 날짜 : ' +end_date+'</p>\
 												</div>\
 												<div class="record-info-data-table-right">\
-													<p><b>'+fund_yield+'</b></p>\
+													<p id=yield' + i +'><b>' +fund_yield+'</b></p>\
 												</div>\
 											</div>\
 										</div>'
 					$(".fund-track-records-wrap").append(fund_track_record);
+			    }
+				if (fund_yield.indexOf('-') == -1){
+			    	$("#yield" + i).css("color", "#ff1515");
+			    } else {
+			    	$("#yield" + i).css("color", "#1212ff");
 			    }
 			}
 			
@@ -172,7 +169,7 @@ function setfund() {
 	});
 }
 
-// 과거 펀드 트랙 4개씩 보여준느 반응형
+// 과거 펀드 트랙 4개씩 보여주는 반응형
 $(window).resize(function(){
 	if ($(window).width() < 901) {
 		$(".mobile-tablet-only").on("click", function(){
@@ -183,33 +180,5 @@ $(window).resize(function(){
 		});
 	}
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
