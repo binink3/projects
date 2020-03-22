@@ -120,7 +120,7 @@ function setfund() {
 	$.ajax({
 		type: "POST",
 		url: "/fund",
-		data: {fund_name_give:fund_name},
+		data: {fund_name_give:fund_name, manager_name_give: manager_name},
 		success: function(response){
 			$(".fund-track-records-wrap").empty();
 			for(let i = 0; i < response.length; i++){
