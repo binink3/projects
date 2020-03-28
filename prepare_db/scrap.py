@@ -17,7 +17,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-download_path = 'C:/Users/lucke/Downloads'
+download_path = '/Users/giubinkang/Downloads'
 now = datetime.now()
 date = now.strftime("%Y%m%d")
 file1 = '펀드매니저 상세정보_운용펀드(기준일)_' + date + '.xls'
