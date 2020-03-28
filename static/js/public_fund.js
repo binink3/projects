@@ -57,8 +57,9 @@ $(document).ready(function() {
 	      	all_fund_info = response;
 	       	for (let i = 0; i < response.length; i++) {
 	       		let fund_name = response[i]["fund_name"];
+	       		let manager_name = response[i]["manager_name"];
 
-	       		let fund_name_lists = '<li class="list-group-item" onclick="getfund(this)">'+fund_name+'</li>'
+	       		let fund_name_lists = '<li class="list-group-item" onclick="getfund(this)">'+manager_name + " : " + fund_name+'</li>'
 				$(".fund-list-group").append(fund_name_lists); 
 	   		}
 	    }
@@ -71,13 +72,17 @@ function getfund(input){
 }
 
 function setfund() {
-	let fund_name = $("#fund-input").val();
+	let fund_name_with_manager = $("#fund-input").val();
+	fund_name = fund_name_with_manager.split(":")[1].trim();
+	let managerName = fund_name_with_manager.split(":")[0].trim();
+
 	
 	// 클릭한 펀드의 정보 채우기
 	let this_fund_info;
 	for (let i = 0 ; i < all_fund_info.length; i++) {
-		if (all_fund_info[i]['fund_name'] == fund_name) {
+		if (all_fund_info[i]['fund_name'] == fund_name && all_fund_info[i]['manager_name'] == managerName) {
 			this_fund_info = all_fund_info[i];
+			break;
 		}
 	}
 
@@ -120,7 +125,7 @@ function setfund() {
 	$.ajax({
 		type: "POST",
 		url: "/fund",
-		data: {fund_name_give:fund_name},
+		data: {fund_name_give:fund_name_with_manager},
 		success: function(response){
 			$(".fund-track-records-wrap").empty();
 			for(let i = 0; i < response.length; i++){
