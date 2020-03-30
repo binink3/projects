@@ -1,9 +1,9 @@
 let all_fund_info;
 
 $(document).ready(function() {
-	$("#wrap").css("display", "none");
+	$("#wrap, #footer").css("display", "none");
 	$(".fund-name-search").on("click", function(){
-		$("#wrap").css("display", "block");
+		$("#wrap, #footer").css("display", "block");
 		$("html, body").animate(
 			{scrollTop:$("#wrap").offset().top
 		}, 1000, "swing");
@@ -73,9 +73,8 @@ function getfund(input){
 
 function setfund() {
 	let fund_name_with_manager = $("#fund-input").val();
-	fund_name = fund_name_with_manager.split(":")[1].trim();
 	let managerName = fund_name_with_manager.split(":")[0].trim();
-
+	fund_name = fund_name_with_manager.split(":")[1].trim();
 	
 	// 클릭한 펀드의 정보 채우기
 	let this_fund_info;
@@ -142,7 +141,7 @@ function setfund() {
 													<p class="fund-name-data-table">'+fund_name_db+'</p>\
 													<p>투자 날짜 : ' +start_date+'</p>\
 													<p>회수 날짜 : ' +end_date+'</p>\
-													<p style="display:inline;">만기 수익률 : </p><span id=yield' + i +'>' +fund_yield+'</span>\
+													<p style="display:inline;">만기 수익률 : </p><span id=yield' + i +'>' +fund_yield+'%</span>\
 												</div>\
 											</div>\
 										</div>'
@@ -156,19 +155,23 @@ function setfund() {
 													<p>회수 날짜 : ' +end_date+'</p>\
 												</div>\
 												<div class="record-info-data-table-right">\
-													<p id=yield' + i +'><b>' +fund_yield+'</b></p>\
+													<p id=yield' + i +'><b>' +fund_yield+'%</b></p>\
 												</div>\
 											</div>\
 										</div>'
 					$(".fund-track-records-wrap").append(fund_track_record);
 			    }
+
 				if (fund_yield.indexOf('-') == -1){
 			    	$("#yield" + i).css("color", "#ff1515");
 			    } else {
 			    	$("#yield" + i).css("color", "#1212ff");
 			    }
+
+			    if (fund_yield.match('N/A')){
+			    	$("#yield" + i).css("color", "#121212");
+			    }
 			}
-			
 		}
 	});
 }

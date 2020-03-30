@@ -25,11 +25,11 @@ def f_list_active_name():
 #검색한 펀드의 운용역 이름이 포함된 List를 불러오는 API
 @app.route('/fund', methods=['POST'])
 def fm_past():
-    fund_name_recieve = request.form['fund_name_give']
-    manager_name = fund_name_recieve.split(':')[0].strip()
-    fund_name = fund_name_recieve.split(':')[1].strip()
-    print(fund_name_recieve, fund_name, manager_name)
-    target_fund_info = db.funds.find_one({'Status': "Active", 'fund_name':fund_name, 'manager_name': manager_name}, {'_id': 0}) ##id값은 가져오지 않겠다
+    fund_name_receive = request.form['fund_name_give']
+    manager_name = fund_name_receive.split(':')[0].strip()
+    fund_name = fund_name_receive.split(':')[1].strip()
+    print(fund_name_receive, fund_name, manager_name)
+    target_fund_info = db.funds.find_one({'Status': "Active", 'fund_name':fund_name, 'manager_name': manager_name}, {'_id': 0}) #id값은 가져오지 않겠다
     print(target_fund_info)
     funds_info = list(db.funds.find({'Status': "Past",'manager_name':target_fund_info['manager_name']}, {'_id': 0}))  # 현재 운영중인 펀드매니저 이름이랑 매칭 되는 과거 내역들을 가져와라
     print(funds_info)
